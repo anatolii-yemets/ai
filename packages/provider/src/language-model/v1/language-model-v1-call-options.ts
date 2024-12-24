@@ -87,4 +87,9 @@ The metadata is passed through to the provider from the AI SDK and enables
 provider-specific functionality that can be fully encapsulated in the provider.
    */
   providerMetadata?: LanguageModelV1ProviderMetadata;
+
+  /**
+  Variables that are used to generate the prompt.
+   */
+  variables?: Record<string, unknown>;
 };

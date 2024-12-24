@@ -109,6 +109,7 @@ export function streamText<TOOLS extends Record<string, CoreTool>>({
   system,
   prompt,
   messages,
+  variables,
   maxRetries,
   abortSignal,
   headers,
@@ -253,6 +254,7 @@ Details for all steps.
     system,
     prompt,
     messages,
+    variables,
     tools,
     toolChoice,
     toolCallStreaming,
@@ -323,6 +325,7 @@ class DefaultStreamTextResult<TOOLS extends Record<string, CoreTool>>
     system,
     prompt,
     messages,
+    variables,
     tools,
     toolChoice,
     toolCallStreaming,
@@ -348,6 +351,7 @@ class DefaultStreamTextResult<TOOLS extends Record<string, CoreTool>>
     system: Prompt['system'];
     prompt: Prompt['prompt'];
     messages: Prompt['messages'];
+    variables: Prompt['variables'];
     tools: TOOLS | undefined;
     toolChoice: CoreToolChoice<TOOLS> | undefined;
     toolCallStreaming: boolean;
@@ -743,6 +747,7 @@ class DefaultStreamTextResult<TOOLS extends Record<string, CoreTool>>
                 result: await model.doStream({
                   mode,
                   ...prepareCallSettings(settings),
+                  variables,
                   inputFormat: promptFormat,
                   prompt: promptMessages,
                   providerMetadata,

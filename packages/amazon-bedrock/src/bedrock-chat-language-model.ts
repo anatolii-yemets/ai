@@ -13,6 +13,7 @@ import {
   ConverseCommand,
   ConverseCommandInput,
   ConverseStreamCommand,
+  ConverseStreamCommandInput,
   ConverseStreamOutput,
   GuardrailConfiguration,
   GuardrailStreamConfiguration,
@@ -226,7 +227,17 @@ export class BedrockChatLanguageModel implements LanguageModelV1 {
   async doStream(
     options: Parameters<LanguageModelV1['doStream']>[0],
   ): Promise<Awaited<ReturnType<LanguageModelV1['doStream']>>> {
-    const { command, warnings } = this.getArgs(options);
+    const { command: rawCommand, warnings } = this.getArgs(options);
+
+    let command: ConverseStreamCommandInput;
+    if ((options as any).variables) {
+      command = {
+        modelId: rawCommand.modelId,
+        promptVariables: (options as any).variables,
+      };
+    } else {
+      command = rawCommand;
+    }
 
     const response = await this.config.client.send(
       new ConverseStreamCommand(command),

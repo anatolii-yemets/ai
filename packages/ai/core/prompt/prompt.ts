@@ -20,4 +20,9 @@ A simple text prompt. You can either use `prompt` or `messages` but not both.
 A list of messages. You can either use `prompt` or `messages` but not both.
    */
   messages?: Array<CoreMessage> | Array<UIMessage>;
+
+  /**
+  Variables to pass to the prompt.
+   */
+  variables?: Record<string, unknown>;
 };
